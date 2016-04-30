@@ -1,0 +1,10 @@
+<div>
+	<%= form_tag(home_search_path, :method => "get", remote: true ,id: "search-form") do %>
+		<%= label_tag('Where do you want to go?')%>
+		<%= text_field_tag :search, params[:search], placeholder: "Search city" %>
+		<%= submit_tag "Search" %>
+	<% end %>
+	<br><br>
+	<div id="search_result">
+	</div>
+</div>

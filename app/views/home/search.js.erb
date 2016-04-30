@@ -1,0 +1,1 @@
+$('#search_result').html("<table id='result_table'><tr><th>CountryName</td><th>Lat</td><th>Long</td><th>Name</td><th>Population</td></tr><%= escape_javascript(render partial: 'home/search_result', collection: @responseObjs, as: :result) %></table>");
