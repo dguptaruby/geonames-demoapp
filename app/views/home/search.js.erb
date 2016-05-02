@@ -1,1 +1,6 @@
-$('#search_result').html("<table id='result_table'><tr><th>CountryName</td><th>Lat</td><th>Long</td><th>Name</td><th>Population</td></tr><%= escape_javascript(render partial: 'home/search_result', collection: @responseObjs, as: :result) %></table>");
+<% if @responseErr.blank? %>
+	$('#search_result').html("<table id='result_table' class='table table-hover'><tr><th>Geoname Id</th><th>CountryName</th><th>Lat</th><th>Long</th><th>Name</th><th>Population</td><th>Elevation</td></tr><%= escape_javascript(render partial: 'home/search_result', collection: @responseObjs, as: :result) %></table>");
+<% else %>
+	$('#search_result').html('');
+	alert('<%= @responseErr %>');
+<% end %>

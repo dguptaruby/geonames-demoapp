@@ -1,10 +1,30 @@
-<div>
-	<%= form_tag(home_search_path, :method => "get", remote: true ,id: "search-form") do %>
-		<%= label_tag('Where do you want to go?')%>
-		<%= text_field_tag :search, params[:search], placeholder: "Search city" %>
-		<%= submit_tag "Search" %>
-	<% end %>
-	<br><br>
+<div class="row">
+  <div class="col-md-12">&nbsp;</div>
+</div>
+<div class="row">
+  <div class="col-md-12">&nbsp;</div>
+</div>
+<div class="row">
+  <div class="col-md-12"></div>
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+  <div class="col-md-6">
+		<%= form_tag(home_search_path, :method => "get", remote: true ,id: "search-form" , class: "form-inline") do %>
+			<div class="form-group">
+			 	<%= label_tag('search','Where do you want to go?' , class: "control-label") %>
+				<%= text_field_tag :search, "", placeholder: "Search palce" , class: "form-control" , "aria-describedby": "helpBlock"%>
+				<%= submit_tag "Search",  class: "btn btn-default" %>
+				<span id="helpBlock" class="help-block">Search any place with the help of GeoNames api</span>
+			</div>			
+		<% end %>
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
 	<div id="search_result">
-	</div>
+	</div>  	
+  </div>
 </div>
