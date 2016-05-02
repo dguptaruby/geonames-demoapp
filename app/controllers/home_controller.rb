@@ -4,13 +4,14 @@ class HomeController < ApplicationController
 	end
 
 	def search
-		@responseObjs = Place.where("lower(name) LIKE ? OR lower(country_name) LIKE ?", "%#{params[:search].downcase}%","%#{params[:search].downcase}%")
+		@responseObjs = Place.includes(:keywords).where("lower(keywords.name) LIKE ?", "%#{params[:search].downcase}%").references(:keywords)
 		if @responseObjs.blank?
 			responseJson = RestClient.get 'http://api.geonames.org/searchJSON',  {:params => {q: params[:search], username: :demo, style: :full, maxRows: 10}}
 			@responseObjs = JSON.parse(responseJson)["geonames"]
 			unless @responseObjs.blank?
 				@responseObjs.each do |obj|
-					Place.find_or_create_by(name: obj["name"], country_name:obj["countryName"], lat:obj["lat"], lng:obj["lng"],  population:obj["population"], geoname_id: obj["geonameId"], elevation: obj["elevation"] )
+					placeobj = Place.find_or_create_by(name: obj["name"], country_name:obj["countryName"], lat:obj["lat"], lng:obj["lng"],  population:obj["population"], geoname_id: obj["geonameId"], elevation: obj["elevation"] )
+					placeobj.keywords.create(name: params[:search])
 				end
 			else
 				@responseErr = JSON.parse(responseJson)["status"]["message"]		
